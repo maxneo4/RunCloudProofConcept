@@ -34,5 +34,17 @@ exports.config = {
   seleniumAddress: 'http://hub.browserstack.com/wd/hub',
 
   // Pattern for finding test spec files
-  specs: ['test/**/*.spec.js']
+  specs: ['test/**/*.spec.js'],
+
+  jasmineNodeOpts: {
+
+       showColors: true,
+
+       defaultTimeoutInterval: 90000,
+
+       browserNoActivityTimeout: 50000,
+
+       captureTimeout: 60000
+
+   }
 }

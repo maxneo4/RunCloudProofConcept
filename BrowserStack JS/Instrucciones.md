@@ -9,7 +9,9 @@
 
 [De donde se tomo el test basico y se encuentran otros ejemplos de uso](https://github.com/angular/protractor/blob/master/docs/tutorial.md)
 
-## E2E configuracion
+[Blog donde muestran la configuracion a varios navegadores y un ejemplo de configuracion de grunt](https://groups.google.com/forum/#!topic/angular/vTDfvfLCnlg)
+
+## Protractor configuracion
 
 Cuando ya esta todo configurado solo usar
 
@@ -23,11 +25,13 @@ Instalar protactor
 
 `npm install protractor --save-dev`
 
+[Porque no usar karma y protractor a la vez](http://stackoverflow.com/questions/17070522/can-protractor-and-karma-be-used-together)
+
 Instalar Browserstack Selenium web driver
 
 `npm install browserstack-webdriver --save-dev`
 
-### Configurando protactor
+### Archivo de configuracion
 
 1. protactor.conf.js
 
@@ -71,3 +75,44 @@ exports.config = {
 
 #### Para ver resultados de la prueba
 [Automate en browserStack](https://www.browserstack.com/automate)
+
+## Grunt configuracion
+
+Instalar grunt
+
+`npm install grunt --save-dev`
+
+Instalar grunt-cli
+
+`npm install grunt-cli --save-dev`
+
+Instalar grunt-bg-shell
+
+[Documentacion bg-shell](https://www.npmjs.com/package/grunt-bg-shell)
+
+`npm install grunt-bg-shell --save-dev`
+
+### Archivo de configuracion
+
+```
+module.exports = function(grunt) {
+
+  grunt.initConfig({
+    bgShell: {
+                runProtractor: {
+                    cmd: 'protractor protractor.conf.js',
+                    bg: false
+                },
+                setCredentials: {
+                    cmd: 'Credentials.cmd"',
+                    bg: false
+                }
+            }
+  });
+
+  grunt.loadNpmTasks('grunt-bg-shell');
+
+  grunt.registerTask('e2e', ['bgShell:setCredentials', 'bgShell:runProtractor']);
+
+};
+```
