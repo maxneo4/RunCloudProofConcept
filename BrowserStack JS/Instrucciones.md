@@ -17,7 +17,9 @@ Cuando ya esta todo configurado solo usar
 
 `npm install`
 
-Si no esta creado el archivo package.json
+### Cuando se realiza todo desde cero
+
+Crear y configurar archivo **package.json**
 
 `npm init`
 
@@ -64,6 +66,8 @@ exports.config = {
 ```
 
 ### Configurando autenticacion a browserstack
+
+La cual se termina colocando en el archivo **Credentials.cmd**
 
 `SET BROWSERSTACK_USERNAME=edwinalejandrobe1`
 
