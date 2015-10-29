@@ -25,7 +25,7 @@ module.exports = function(grunt) {
                       hostname: 'localhost',
                       keepalive: true,
                       port: 8000,
-                      open: true,
+                      open: false,
                       middleware: function (connect, options) {
                           return [proxySnippet];
                       }
