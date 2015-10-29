@@ -120,3 +120,18 @@ module.exports = function(grunt) {
 
 };
 ```
+
+## Configuracion de pruebas locales
+
+Instalar express
+`npm install express --save-dev`
+
+Instalar gruntProxie
+
+`npm install grunt-connect-proxy --save-dev`
+
+`npm install grunt-contrib-connect --save-dev`
+
+[Ejemplo minimo de gruntProxie](http://stackoverflow.com/questions/25068221/minimal-example-of-using-grunt-connect-proxy/)
+
+[Usar gruntProxy como frontEnd server](http://gregbabiars.com/using-grunt-as-your-front-end-dev-server/)
