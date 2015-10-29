@@ -9,12 +9,20 @@ module.exports = function(grunt) {
                 setCredentials: {
                     cmd: 'Credentials.cmd"',
                     bg: false
+                },
+                runLocalServer: {
+                    cmd: 'node ./scripts/server.js',
+                    bg: true
+                },
+                runApiRestMock: {
+                    cmd:'node ./scripts/apiRestMock.js',
+                    bg: true
                 }
             }
   });
 
   grunt.loadNpmTasks('grunt-bg-shell');
 
-  grunt.registerTask('e2e', ['bgShell:setCredentials', 'bgShell:runProtractor']);
+  grunt.registerTask('e2e', ['bgShell:setCredentials', 'bgShell:runLocalServer', 'bgShell:runApiRestMock']);
 
 };
