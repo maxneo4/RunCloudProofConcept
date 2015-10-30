@@ -136,6 +136,16 @@ Instalar gruntProxie
 
 [Usar gruntProxy como frontEnd server](http://gregbabiars.com/using-grunt-as-your-front-end-dev-server/)
 
-Instalar wrapper para browserStackLocal
+Instalar wrapper para browserStackLocal (*Este solicita permisos del firewall la primera vez que se ejecuta*)
 
 `npm install browserstacktunnel-wrapper --save-dev`
+
+**Para las variables de ambiente**
+
+`npm install grunt-env --save-dev`
+
+[Documentacion oficial](https://www.npmjs.com/package/grunt-env)
+
+[Informacion corta de uso](http://stackoverflow.com/questions/15554215/nodejs-environment-variables-in-grunt)
+
+[En caso de requerir concurrencia en el grunt u otro caso complejo](https://www.safaribooksonline.com/blog/2013/12/17/grunt-tricks/)

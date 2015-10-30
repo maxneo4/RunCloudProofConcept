@@ -2,7 +2,7 @@ exports.config = {
     multiCapabilities: [
     {
     'browserstack.user': process.env.BROWSERSTACK_USERNAME,
-   'browserstack.key': process.env.BROWSERSTACK_KEY,
+    'browserstack.key': process.env.BROWSERSTACK_KEY,
     // Needed for testing localhost
     'browserstack.local' : 'true',
     // Settings for the browser you want to test

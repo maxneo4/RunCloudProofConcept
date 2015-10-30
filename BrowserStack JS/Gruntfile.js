@@ -6,10 +6,6 @@ module.exports = function(grunt) {
                     cmd: 'protractor protractor.conf.js',
                     bg: false
                 },
-                setCredentials: {
-                    cmd: 'Credentials.cmd"',
-                    bg: false
-                },
                 runLocalServer: {
                     cmd: 'node ./scripts/server.js',
                     bg: true
@@ -40,16 +36,26 @@ module.exports = function(grunt) {
                       port: 2000
                   }]
               }
-          }  }
+          },
+          env : {
+            options : {
+              //Shared Options Hash
+            },
+            dev : {
+              BROWSERSTACK_USERNAME : 'edwinalejandrobe1',
+              BROWSERSTACK_KEY  : '8TCw23SoLnrWjLdVY4PV'
+            }
+          }
+        }
 );
 
-  grunt.loadNpmTasks('grunt-bg-shell');
-
+  grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-connect-proxy');
   grunt.loadNpmTasks('grunt-contrib-connect');
-
-  grunt.registerTask('pree2e', ['bgShell:runLocalServer', 'bgShell:runApiRestMock', 'configureProxies:server',  'connect:server' ]);
-
-  grunt.registerTask('e2e', ['bgShell:setCredentials', 'bgShell:runBrowserStackTunnel' ]);
+  grunt.loadNpmTasks('grunt-bg-shell');
+  
+  grunt.registerTask('proxy', ['configureProxies:server',  'connect:server' ]);
+  grunt.registerTask('server', ['bgShell:runLocalServer', 'bgShell:runApiRestMock', 'env', 'bgShell:runBrowserStackTunnel' ]);
+  grunt.registerTask('e2e', ['env', 'bgShell:runProtractor' ]);
 
 };
