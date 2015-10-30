@@ -4,7 +4,7 @@ exports.config = {
     'browserstack.user': process.env.BROWSERSTACK_USERNAME,
    'browserstack.key': process.env.BROWSERSTACK_KEY,
     // Needed for testing localhost
-    'browserstack.local' : 'false',
+    'browserstack.local' : 'true',
     // Settings for the browser you want to test
     // (check docs for difference between `browser` and `browserName`
     'browserName' : 'Chrome',
@@ -18,7 +18,7 @@ exports.config = {
   'browserstack.user': process.env.BROWSERSTACK_USERNAME,
   'browserstack.key': process.env.BROWSERSTACK_KEY,
   // Needed for testing localhost
-  'browserstack.local' : 'false',
+  'browserstack.local' : 'true',
   // Settings for the browser you want to test
   // (check docs for difference between `browser` and `browserName`
   'browser' : 'IE',
@@ -34,17 +34,6 @@ exports.config = {
   seleniumAddress: 'http://hub.browserstack.com/wd/hub',
 
   // Pattern for finding test spec files
-  specs: ['test/**/*.spec.js'],
+  specs: ['test/**/*.spec.js']
 
-  jasmineNodeOpts: {
-
-       showColors: true,
-
-       defaultTimeoutInterval: 90000,
-
-       browserNoActivityTimeout: 50000,
-
-       captureTimeout: 60000
-
-   }
 }

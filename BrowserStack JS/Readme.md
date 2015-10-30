@@ -135,3 +135,7 @@ Instalar gruntProxie
 [Ejemplo minimo de gruntProxie](http://stackoverflow.com/questions/25068221/minimal-example-of-using-grunt-connect-proxy/)
 
 [Usar gruntProxy como frontEnd server](http://gregbabiars.com/using-grunt-as-your-front-end-dev-server/)
+
+Instalar wrapper para browserStackLocal
+
+`npm install browserstacktunnel-wrapper --save-dev`

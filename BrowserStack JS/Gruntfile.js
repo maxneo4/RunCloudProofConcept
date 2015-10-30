@@ -17,6 +17,10 @@ module.exports = function(grunt) {
                 runApiRestMock: {
                     cmd:'node ./scripts/apiRestMock.js',
                     bg: true
+                },
+                runBrowserStackTunnel: {
+                    cmd:'node ./scripts/browserStackTunnel.js',
+                    bg: true
                 }
             },
     connect: {
@@ -36,8 +40,7 @@ module.exports = function(grunt) {
                       port: 2000
                   }]
               }
-          }
-  }
+          }  }
 );
 
   grunt.loadNpmTasks('grunt-bg-shell');
@@ -45,7 +48,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-connect-proxy');
   grunt.loadNpmTasks('grunt-contrib-connect');
 
-  grunt.registerTask('e2e', ['bgShell:setCredentials', 'bgShell:runLocalServer', 'bgShell:runApiRestMock', 'configureProxies:server',
-        'connect:server' ]);
+  grunt.registerTask('pree2e', ['bgShell:runLocalServer', 'bgShell:runApiRestMock', 'configureProxies:server',  'connect:server' ]);
+
+  grunt.registerTask('e2e', ['bgShell:setCredentials', 'bgShell:runProtractor' ]);
 
 };
