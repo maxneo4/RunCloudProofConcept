@@ -20,7 +20,7 @@ module.exports = function(grunt) {
                 },
                 runBrowserStackTunnel: {
                     cmd:'node ./scripts/browserStackTunnel.js',
-                    bg: true
+                    bg: false
                 }
             },
     connect: {
@@ -50,6 +50,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('pree2e', ['bgShell:runLocalServer', 'bgShell:runApiRestMock', 'configureProxies:server',  'connect:server' ]);
 
-  grunt.registerTask('e2e', ['bgShell:setCredentials', 'bgShell:runProtractor' ]);
+  grunt.registerTask('e2e', ['bgShell:setCredentials', 'bgShell:runBrowserStackTunnel' ]);
 
 };

@@ -1,6 +1,4 @@
 var BrowserStackTunnel = require('browserstacktunnel-wrapper');
-var protractor = require('protractor');
-var child_process = require('child_process');
 
 var browserStackTunnel = new BrowserStackTunnel({
   key: process.env.BROWSERSTACK_KEY,
@@ -10,3 +8,11 @@ var browserStackTunnel = new BrowserStackTunnel({
     sslFlag: 0
   }]
 });
+
+browserStackTunnel.start(function(error) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("tunnel has started");    
+    }
+  });
