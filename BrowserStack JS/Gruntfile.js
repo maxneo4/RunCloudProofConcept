@@ -16,14 +16,18 @@ module.exports = function(grunt) {
                 },
                 runBrowserStackTunnel: {
                     cmd:'node ./scripts/browserStackTunnel.js',
-                    bg: false
+                    bg: true
+                },
+                sleep5: {
+                cmd: 'node -e "setTimeout(new Function(), 5000)"',
+                bg: false
                 }
             },
     connect: {
               server: {
                   options: {
                       hostname: 'localhost',
-                      keepalive: true,
+                      keepalive: false,
                       port: 8000,
                       open: false,
                       middleware: function (connect, options) {
@@ -53,9 +57,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-connect-proxy');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-bg-shell');
-  
-  grunt.registerTask('proxy', ['configureProxies:server',  'connect:server' ]);
-  grunt.registerTask('server', ['bgShell:runLocalServer', 'bgShell:runApiRestMock', 'env', 'bgShell:runBrowserStackTunnel' ]);
-  grunt.registerTask('e2e', ['env', 'bgShell:runProtractor' ]);
+
+  grunt.registerTask('e2e', ['configureProxies:server',  'connect:server', 'bgShell:runLocalServer', 'bgShell:runApiRestMock', 'env', 'bgShell:runBrowserStackTunnel', 'bgShell:sleep5', 'bgShell:runProtractor' ]);
 
 };
