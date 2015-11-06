@@ -46,8 +46,8 @@ module.exports = function(grunt) {
               //Shared Options Hash
             },
             dev : {
-              BROWSERSTACK_USERNAME : 'edwinalejandrobe1',
-              BROWSERSTACK_KEY  : '8TCw23SoLnrWjLdVY4PV'
+              BROWSERSTACK_USERNAME : 'user',
+              BROWSERSTACK_KEY  : 'key'
             }
           }
         }

@@ -37,15 +37,14 @@ Instalar Browserstack Selenium web driver
 
 1. protactor.conf.js
 
-```
+```javascript
 exports.config = {
-  capabilities: {
+    multiCapabilities: [
+    {
     'browserstack.user': process.env.BROWSERSTACK_USERNAME,
-   'browserstack.key': process.env.BROWSERSTACK_KEY,
-
+    'browserstack.key': process.env.BROWSERSTACK_KEY,
     // Needed for testing localhost
-    'browserstack.local' : 'false',
-
+    'browserstack.local' : 'true',
     // Settings for the browser you want to test
     // (check docs for difference between `browser` and `browserName`
     'browserName' : 'Chrome',
@@ -55,6 +54,20 @@ exports.config = {
     'os_version' : 'Mavericks',
     'resolution' : '1024x768'
   },
+  {
+  'browserstack.user': process.env.BROWSERSTACK_USERNAME,
+  'browserstack.key': process.env.BROWSERSTACK_KEY,
+  // Needed for testing localhost
+  'browserstack.local' : 'true',
+  // Settings for the browser you want to test
+  // (check docs for difference between `browser` and `browserName`
+  'browser' : 'IE',
+  'browserName': 'IE',
+  'browser_version': '11.0',
+  'os': 'Windows',
+  'resolution' : '1024x768'
+}
+],
 
    framework: 'jasmine2',
   // Browserstack's selenium server address
@@ -62,7 +75,9 @@ exports.config = {
 
   // Pattern for finding test spec files
   specs: ['test/**/*.spec.js']
+
 }
+
 ```
 
 ### Configurando autenticacion a browserstack
@@ -98,27 +113,71 @@ Instalar grunt-bg-shell
 
 ### Archivo de configuracion
 
-```
+```javascript
 module.exports = function(grunt) {
-
+  var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
   grunt.initConfig({
     bgShell: {
                 runProtractor: {
                     cmd: 'protractor protractor.conf.js',
                     bg: false
                 },
-                setCredentials: {
-                    cmd: 'Credentials.cmd"',
-                    bg: false
+                runLocalServer: {
+                    cmd: 'node ./scripts/server.js',
+                    bg: true
+                },
+                runApiRestMock: {
+                    cmd:'node ./scripts/apiRestMock.js',
+                    bg: true
+                },
+                runBrowserStackTunnel: {
+                    cmd:'node ./scripts/browserStackTunnel.js',
+                    bg: true
+                },
+                sleep5: {
+                cmd: 'node -e "setTimeout(new Function(), 5000)"',
+                bg: false
                 }
+            },
+    connect: {
+              server: {
+                  options: {
+                      hostname: 'localhost',
+                      keepalive: false,
+                      port: 8000,
+                      open: false,
+                      middleware: function (connect, options) {
+                          return [proxySnippet];
+                      }
+                  },
+                  proxies: [{
+                      context: '/',
+                      host: 'localhost',
+                      port: 2000
+                  }]
+              }
+          },
+          env : {
+            options : {
+              //Shared Options Hash
+            },
+            dev : {
+              BROWSERSTACK_USERNAME : 'user',
+              BROWSERSTACK_KEY  : 'key'
             }
-  });
+          }
+        }
+);
 
+  grunt.loadNpmTasks('grunt-env');
+  grunt.loadNpmTasks('grunt-connect-proxy');
+  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-bg-shell');
 
-  grunt.registerTask('e2e', ['bgShell:setCredentials', 'bgShell:runProtractor']);
+  grunt.registerTask('e2e', ['configureProxies:server',  'connect:server', 'bgShell:runLocalServer', 'bgShell:runApiRestMock', 'env', 'bgShell:runBrowserStackTunnel', 'bgShell:sleep5', 'bgShell:runProtractor' ]);
 
 };
+
 ```
 
 ## Configuracion de pruebas locales
@@ -146,6 +205,6 @@ Instalar wrapper para browserStackLocal (*Este solicita permisos del firewall la
 
 [Documentacion oficial](https://www.npmjs.com/package/grunt-env)
 
-[Informacion corta de uso](http://stackoverflow.com/questions/15554215/nodejs-environment-variables-in-grunt)
+[Informacion acerca de las variables de ambiente](http://stackoverflow.com/questions/15554215/nodejs-environment-variables-in-grunt)
 
 [En caso de requerir concurrencia en el grunt u otro caso complejo](https://www.safaribooksonline.com/blog/2013/12/17/grunt-tricks/)
